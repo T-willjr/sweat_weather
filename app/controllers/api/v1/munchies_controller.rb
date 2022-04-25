@@ -3,6 +3,6 @@ class Api::V1::MunchiesController < ApplicationController
     start = params[:start] 
     destination = params[:destination]
     food = params[:food]
-    MunchiesFacade.get_food_forecast(start, destination, food)
+    render json: MunchiesFacade.get_food_forecast(start, destination, food)
   end 
 end 
