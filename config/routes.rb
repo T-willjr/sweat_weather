@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :geocode
       resources :forecast
+      resources :backgrounds
     end 
    end 
 end
