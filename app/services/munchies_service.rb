@@ -1,8 +1,8 @@
 class MunchiesService 
   class << self 
 
-    def call_restaurant_info(food,destination)
-      response = conn.get("/v3/businesses/search?location=#{destination}&categories=#{food}&limit=1")
+    def call_restaurant_info(food,destination, time)
+      response = conn.get("/v3/businesses/search?location=#{destination}&categories=#{food}&limit=1&open_at=#{time}")
       parse_data(response)
     end 
 
