@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :geocode
       resources :forecast
       resources :backgrounds
+      resources :munchies, only: [:index]
     end 
    end 
 end
