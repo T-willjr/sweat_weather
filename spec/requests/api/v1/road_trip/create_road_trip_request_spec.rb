@@ -22,7 +22,7 @@ RSpec.describe "Gets Road Trip Results" do
 
     road_trip_result = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response).to be_successful
+    expect(response).to have_http_status(200)
 
     expect(road_trip_result.count).to eq(1)
     expect(road_trip_result[:data].keys.count).to eq(3)
@@ -55,7 +55,7 @@ RSpec.describe "Gets Road Trip Results" do
 
     error_response = JSON.parse(response.body, symbolize_names: true)
 
-    #expect(response).to have_http_status(201)
+    expect(response).to have_http_status(400)
     
     expect(error_response.count).to eq(1)
     expect(error_response[:data].keys.count).to eq(3)
@@ -88,7 +88,7 @@ RSpec.describe "Gets Road Trip Results" do
 
     road_trip_result = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response).to be_successful
+    expect(response).to have_http_status(200)
 
     expect(road_trip_result.count).to eq(1)
     expect(road_trip_result[:data].keys.count).to eq(3)
