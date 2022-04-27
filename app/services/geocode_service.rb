@@ -7,7 +7,7 @@ class GeocodeService
 
     def call_route_time(start,destination)
       response = conn.post("/directions/v2/route?key=#{ENV['api_key']}&from=#{start}&to=#{destination}")
-      a = parse_data(response)
+      parse_data(response)
     end 
 
     def conn 
