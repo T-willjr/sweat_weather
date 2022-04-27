@@ -6,7 +6,7 @@ RSpec.describe "Creates A User Session" do
     attribute_keys = [:email, :api_key]
     user = User.create!(email: "test@email.com", password: "12345", password_confirmation: "12345")
 
-    user_params = 
+    session_params = 
         { 
            "email": "test@email.com",
            "password": "12345", 
@@ -16,12 +16,12 @@ RSpec.describe "Creates A User Session" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/sessions", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(session_params)
     
     user_result = JSON.parse(response.body, symbolize_names: true)
     
     expect(response).to have_http_status(200)
-		expect(user.email).to eq(user_params[:email])
+		expect(user.email).to eq(session_params[:email])
 		expect(user.id).to eq(user_result[:data][:id])
 		expect(user.private_api_key).to eq(user_result[:data][:attributes][:api_key])
     
@@ -40,7 +40,7 @@ RSpec.describe "Creates A User Session" do
     successful_keys = [:email, :api_key]
     user = User.create!(email: "test@email.com", password: "12345", password_confirmation: "12345")
 
-    user_params = 
+    session_params = 
         { 
            "email": "test@email.com",
            "password": "12345", 
@@ -50,7 +50,7 @@ RSpec.describe "Creates A User Session" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/sessions", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(session_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
     #expect(response).to have_http_status(201)
@@ -71,7 +71,7 @@ RSpec.describe "Creates A User Session" do
     successful_keys = [:email, :api_key]
     user = User.create!(email: "test@email.com", password: "12345", password_confirmation: "12345")
 
-    user_params = 
+    session_params = 
         { 
            "email": "",
            "password": "12345", 
@@ -81,7 +81,7 @@ RSpec.describe "Creates A User Session" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/sessions", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/sessions", headers: headers, params: JSON.generate(session_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
     #expect(response).to have_http_status(201)

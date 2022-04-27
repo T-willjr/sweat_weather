@@ -5,7 +5,7 @@ RSpec.describe "Creates A User" do
     data_keys = [:type, :id, :attributes]
     attribute_keys = [:email, :api_key]
 
-    user_params = 
+    users_params = 
         { 
            "email": "test@email.com",
            "password": "12345", 
@@ -15,7 +15,7 @@ RSpec.describe "Creates A User" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(users: users_params)
     
     created_user_result = JSON.parse(response.body, symbolize_names: true)
 
@@ -39,7 +39,7 @@ RSpec.describe "Creates A User" do
     attribute_keys = [:error]
     successful_keys = [:email, :api_key]
 
-    user_params = 
+    users_params = 
         { 
            "email": "test@email.com",
            "password": "12345", 
@@ -49,7 +49,7 @@ RSpec.describe "Creates A User" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(users: users_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
     expect(response).to have_http_status(201)
@@ -70,7 +70,7 @@ RSpec.describe "Creates A User" do
     attribute_keys = [:error]
     successful_keys = [:email, :api_key]
 
-    user_params = 
+    users_params = 
         { 
            "email": "",
            "password": "12345", 
@@ -80,7 +80,7 @@ RSpec.describe "Creates A User" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users", headers: headers, params: JSON.generate(user: user_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(user: users_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
     expect(response).to have_http_status(201)
