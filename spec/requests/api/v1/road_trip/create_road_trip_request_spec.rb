@@ -9,7 +9,7 @@ RSpec.describe "Gets Road Trip Results" do
     restaurant_keys = [:name, :address]
 
     user = User.create!(email: "test@email.com", password: "12345", password_confirmation: "12345")
-    travel_params =
+    road_trip_params =
       {
         "origin": "Denver,CO",
         "destination": "Pueblo,CO",
@@ -18,7 +18,7 @@ RSpec.describe "Gets Road Trip Results" do
 
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/road_trip", headers: headers, params: JSON.generate(travel: travel_params)
+    post "/api/v1/road_trip", headers: headers, params: JSON.generate(road_trip: road_trip_params)
 
     road_trip_result = JSON.parse(response.body, symbolize_names: true)
 
