@@ -3,11 +3,13 @@ Rails.application.routes.draw do
    namespace :api do
     namespace :v1 do
       get "/geocode/route/time", to: "geocode#time"
+      post "/sessions", to: "users#session"
       resources :geocode, only: [:show]
       resources :forecast, only: [:index]
       resources :backgrounds, only: [:index]
       resources :munchies, only: [:index]
       resources :users, only: [:create]
+      resources :sessions
     end 
    end 
 end

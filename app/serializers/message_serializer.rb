@@ -12,4 +12,18 @@ class MessageSerializer
         }
       }
   end 
+
+  def self.hashed_login_error 
+      {
+        "data": {
+          "type": "users",
+          "id": nil,
+          "attributes": {
+            "error": {
+              "message": "Your email or password is incorrect"
+            }
+          }
+        }
+      }
+  end 
 end 
