@@ -10,10 +10,23 @@ class Api::V1::UsersController < ApplicationController
     end
   end 
 
+  def session
+    user = User.find_by(email: params[:user][:email])
+    if user.present? && password_authenticated?(user, params[:user][:password], params[:user][:password_confirmation])
+      render json: UserSerializer.hashed(user)
+    else 
+      render json: MessageSerializer.hashed_login_error
+    end 
+  end 
+
   private 
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end 
+
+  def password_authenticated?(user, password, password_confirmation)
+    user.authenticate(password) && user.authenticate(password_confirmation)
   end 
 
   def set_code_on_create
