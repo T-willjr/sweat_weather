@@ -1,19 +1,19 @@
 class Api::V1::UsersController < ApplicationController 
   after_action :set_code_on_create, only: [:create]
-
+  after_action :set_code_on_session, only: [:session]
   def create 
-    user = User.new(user_params)
-    if user.save
-      render json: UserSerializer.hashed(user)
+    @user = User.new(user_params)
+    if @user.save
+      render json: UserSerializer.hashed(@user)
     else
-      render json: MessageSerializer.hashed(user.errors.full_messages.to_sentence)
+      render json: MessageSerializer.hashed(@user.errors.full_messages.to_sentence)
     end
   end 
 
   def session
-    user = User.find_by(email: params[:email])
-    if user.present? && password_authenticated?(user, params[:password], params[:password_confirmation])
-      render json: UserSerializer.hashed(user)
+    @user = User.find_by(email: params[:email])
+    if @user.present? && password_authenticated?(@user, params[:password], params[:password_confirmation])
+      render json: UserSerializer.hashed(@user)
     else 
       render json: MessageSerializer.hashed_login_error
     end 
@@ -30,6 +30,18 @@ class Api::V1::UsersController < ApplicationController
   end 
 
   def set_code_on_create
-    response.status = 201 if response.status == 200
+    if @user.save
+      response.status = 201 if response.status == 200
+    else  
+      response.status = 400 if response.status == 200
+    end 
+  end
+
+  def set_code_on_session
+    if @user.present? && password_authenticated?(@user, params[:password], params[:password_confirmation])
+      response.status = 200
+    else  
+      response.status = 400 if response.status == 200
+    end 
   end
 end 
