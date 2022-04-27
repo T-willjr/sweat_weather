@@ -21,10 +21,10 @@ RSpec.describe "Creates A User Session" do
     user_result = JSON.parse(response.body, symbolize_names: true)
     
     expect(response).to have_http_status(200)
-    
 		expect(user.email).to eq(user_params[:email])
 		expect(user.id).to eq(user_result[:data][:id])
-
+		expect(user.private_api_key).to eq(user_result[:data][:attributes][:api_key])
+    
 
     expect(user_result.count).to eq(1)
     expect(user_result[:data].keys.count).to eq(3)
