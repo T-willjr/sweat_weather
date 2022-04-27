@@ -15,14 +15,13 @@ RSpec.describe "Creates A User" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users", headers: headers, params: JSON.generate(users: users_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(users_params)
     
     created_user_result = JSON.parse(response.body, symbolize_names: true)
 
     created_user = User.first
     expect(response).to have_http_status(201)
-    
-		expect(created_user.email).to eq(user_params[:email])
+		expect(created_user.email).to eq(users_params[:email])
 		expect(created_user.id).to eq(created_user_result[:data][:id])
 
 
@@ -49,10 +48,10 @@ RSpec.describe "Creates A User" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users", headers: headers, params: JSON.generate(users: users_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(users_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
-    expect(response).to have_http_status(201)
+    expect(response).to have_http_status(400)
     
 
     expect(error_response.count).to eq(1)
@@ -80,10 +79,10 @@ RSpec.describe "Creates A User" do
  
     headers = {"CONTENT_TYPE" => "application/json"}
 
-    post "/api/v1/users", headers: headers, params: JSON.generate(user: users_params)
+    post "/api/v1/users", headers: headers, params: JSON.generate(users_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
-    expect(response).to have_http_status(201)
+    expect(response).to have_http_status(400)
     
 
     expect(error_response.count).to eq(1)

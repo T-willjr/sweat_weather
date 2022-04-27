@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe "Creates A User Session" do  
-  it "creates one user session" do 
+RSpec.describe "Creates A User Login" do  
+  it "creates one user login" do 
     data_keys = [:type, :id, :attributes]
     attribute_keys = [:email, :api_key]
     user = User.create!(email: "test@email.com", password: "12345", password_confirmation: "12345")
@@ -53,7 +53,7 @@ RSpec.describe "Creates A User Session" do
     post "/api/v1/sessions", headers: headers, params: JSON.generate(session_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
-    #expect(response).to have_http_status(201)
+    expect(response).to have_http_status(400)
 
     expect(error_response.count).to eq(1)
     expect(error_response[:data].keys.count).to eq(3)
@@ -84,7 +84,7 @@ RSpec.describe "Creates A User Session" do
     post "/api/v1/sessions", headers: headers, params: JSON.generate(session_params)
 
     error_response = JSON.parse(response.body, symbolize_names: true)
-    #expect(response).to have_http_status(201)
+    expect(response).to have_http_status(400)
     
 
     expect(error_response.count).to eq(1)
