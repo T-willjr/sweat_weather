@@ -3,10 +3,11 @@ Rails.application.routes.draw do
    namespace :api do
     namespace :v1 do
       get "/geocode/route/time", to: "geocode#time"
-      resources :geocode
-      resources :forecast
-      resources :backgrounds
+      resources :geocode, only: [:show]
+      resources :forecast, only: [:index]
+      resources :backgrounds, only: [:index]
       resources :munchies, only: [:index]
+      resources :users, only: [:create]
     end 
    end 
 end
