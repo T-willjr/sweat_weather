@@ -1,5 +1,7 @@
 class ForecastSerializer 
-  def self.hashed(weather)
+  class << self 
+
+  def hashed(weather)
     { 
       "data": { 
          "id": nil, 
@@ -39,5 +41,23 @@ class ForecastSerializer
           }
        }
      }
+  end 
+
+     def hashed_weather_forecast(weather, travel_time)
+      hour = travel_time - 1
+      { 
+        "data": { 
+          "id": nil, 
+          "type": "forecast", 
+          "attributes": {
+              "hourly_weather": 
+                  { 
+                  "temperature": weather[:hourly][hour][:temp],
+                  "conditions": weather[:hourly][hour][:weather].first[:description],
+                  }
+            }
+        }
+      }
+     end 
   end
 end 
