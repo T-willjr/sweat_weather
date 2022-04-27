@@ -43,7 +43,12 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (9.0.0)
+    argon2-kdf (0.1.7)
+    bcrypt (3.1.17)
     binding.repl (3.0.0)
+    blind_index (2.3.0)
+      activesupport (>= 5.2)
+      argon2-kdf (>= 0.1.1)
     bootsnap (1.11.1)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -117,6 +122,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
+    lockbox (0.6.8)
     loofah (2.16.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -198,6 +204,8 @@ GEM
     ruby_engine (1.0.1)
     ruby_info (1.0.1)
     ruby_version (1.0.2)
+    shoulda-matchers (5.1.0)
+      activesupport (>= 5.2.0)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -232,6 +240,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
+  blind_index (~> 2.3)
   bootsnap (>= 1.1.0)
   byebug
   factory_bot_rails
@@ -241,11 +251,13 @@ DEPENDENCIES
   irbtools
   jsonapi-serializer
   listen (>= 3.0.5, < 3.2)
+  lockbox (~> 0.6.8)
   pg (>= 0.18, < 2.0)
   pry
   puma (~> 3.11)
   rails (~> 5.2.6)
   rspec-rails
+  shoulda-matchers
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

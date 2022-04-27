@@ -5,6 +5,10 @@ class GeocodeFacade
       latitude_longitude(data)
     end 
 
+    def get_route_time(start, destination)
+      GeocodeService.call_route_time(start, destination)
+    end 
+
     private 
 
     def latitude_longitude(geocode_data)
