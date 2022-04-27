@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Gets Food & Forecast for a ctiy" do
   
-  it "gets food & forecast for a ctiy" do  
+  xit "gets food & forecast for a ctiy" do  
     city = "pueblo,co"
     start = "denver,co"
     food = "chinese"
