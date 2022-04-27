@@ -8,7 +8,7 @@ class UserSerializer
             "id": user.id,
             "attributes": {
               "email": user.email,
-              "api_key": user.private_api_key_bidx
+              "api_key": user.private_api_key
               }
             }
           }
