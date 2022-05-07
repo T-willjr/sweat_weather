@@ -17,27 +17,40 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     steps:
-      - name: Checkout code
-      - uses: actions/checkout@v2
-      
-      - name: Setup Ruby and install gems
-      - uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
       - uses: actions/checkout@v1
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
           node-version: 17.9.0
       - name: Install dependencies
         run: |
+          gem install bundler
+          bundle install
           yarn install
       - name: Setup test database
         env:
           RAILS_ENV: test
           PGHOST: localhost
+          POSTGRES_DB: rails_github_actions_test
+          POSTGRES_USER: rails_github_actions
+          POSTGRES_PASSWORD: postgres
+        run: |
+          cp config/database.ci.yml config/database.yml
+          rake db:create db:migrate
+      - name: Run tests
+        env:
+          PGHOST: localhost
+          POSTGRES_DB: rails_github_actions_test
+          POSTGRES_USER: rails_github_actions
+          POSTGRES_PASSWORD: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+          RAILS_ENV: test
+        run: rspec
           POSTGRES_DB: rails_github_actions_test
           POSTGRES_USER: rails_github_actions
           POSTGRES_PASSWORD: postgres
