@@ -19,19 +19,17 @@ jobs:
           --health-retries 5
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+      - name: Setup Ruby and install gems
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7
+          bundler-cache: true
+      - uses: actions/checkout@v1
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
           node-version: 17.9.0
       - name: Install dependencies
         run: |
-          gem install bundler
-          bundle install
           yarn install
       - name: Setup test database
         env:
